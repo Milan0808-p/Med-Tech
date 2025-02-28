@@ -18,7 +18,7 @@ const UserLogin = () => {
     try {
       const response = await axios.post('http://localhost:4000/users/login', formData);
       console.log(response.data);
-      navigate('/');
+      navigate('/user');
     } catch (error) {
       console.error(error);
     }

@@ -33,7 +33,7 @@ const DoctorSignup = () => {
         phoneNumber: formData.phoneNumber
       });
       console.log(response.data);
-      navigate('/');
+      navigate('/doctor');
     } catch (error) {
       console.error(error);
     }

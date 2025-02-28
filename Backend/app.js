@@ -11,6 +11,7 @@ const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const doctorRoutes = require('./routes/doctor.routes');
 const messageRoutes = require('./routes/message.routes');
+const medicalReportRoutes = require('./routes/medicalReport.routes');
 
 connectToDb();
 
@@ -23,8 +24,10 @@ app.get('/', (req, res) => {
     res.send('hello world');
 });
 
+
 app.use('/users', userRoutes);
 app.use('/doctors', doctorRoutes);
 app.use('/messages', messageRoutes);
+app.use('/medical-reports', medicalReportRoutes);
 
 module.exports = app;

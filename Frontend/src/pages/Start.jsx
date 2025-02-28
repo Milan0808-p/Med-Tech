@@ -10,8 +10,8 @@ const Start = () => {
           <div className="space-x-4">
             <Link to="/doctor/login" className="text-white hover:text-gray-200 transition duration-300">Doctor Login</Link>
             <Link to="/user/login" className="text-white hover:text-gray-200 transition duration-300">User Login</Link>
-            {/* <Link to="/doctor/signup" className="text-white hover:text-gray-200 transition duration-300">Doctor Signup</Link>
-            <Link to="/user/signup" className="text-white hover:text-gray-200 transition duration-300">User Signup</Link> */}
+            <Link to="/upload-report" className="text-white hover:text-gray-200 transition duration-300">Upload Report</Link>
+            <Link to="/progress-report" className="text-white hover:text-gray-200 transition duration-300">Progress Report</Link>
           </div>
         </div>
       </nav>

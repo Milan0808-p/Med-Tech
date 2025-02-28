@@ -27,7 +27,7 @@ const UserSignup = () => {
         password: formData.password
       });
       console.log(response.data);
-      navigate('/');
+      navigate('/user');
     } catch (error) {
       console.error(error);
     }
