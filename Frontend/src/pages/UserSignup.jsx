@@ -18,7 +18,14 @@ const UserSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/users/register', formData);
+      const response = await axios.post('http://localhost:4000/users/register', {
+        fullname: {
+          firstname: formData.firstname,
+          lastname: formData.lastname
+        },
+        email: formData.email,
+        password: formData.password
+      });
       console.log(response.data);
       navigate('/');
     } catch (error) {
