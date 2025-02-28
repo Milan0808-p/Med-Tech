@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const UserNavbar = ({ user }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleNavbar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
-      <div className="p-4">
-        {user ? (
+    <div className={`h-screen bg-gray-800 text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'}`}>
+      <div className="p-4 flex justify-between items-center">
+        {user && !isCollapsed && (
           <>
-            <h2 className="text-xl font-bold">{user.fullname.firstname} {user.fullname.lastname}</h2>
-            <p>{user.email}</p>
+            <div>
+              <h2 className="text-xl font-bold">{user.fullname.firstname} {user.fullname.lastname}</h2>
+              <p>{user.email}</p>
+            </div>
           </>
-        ) : (
-          <p>Loading...</p>
         )}
+        <button onClick={toggleNavbar} className="text-white">
+          {isCollapsed ? '>' : '<'}
+        </button>
       </div>
       <nav className="flex-grow p-4">
         <ul>
@@ -24,9 +33,6 @@ const UserNavbar = ({ user }) => {
           </li>
           <li className="mb-2">
             <Link to="/progress-report" className="text-white">Progress Report</Link>
-          </li>
-          <li className="mb-2">
-            <Link to="/user/profile" className="text-white">Profile</Link>
           </li>
         </ul>
       </nav>

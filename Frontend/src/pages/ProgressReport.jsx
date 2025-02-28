@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import UserNavbar from '../components/UserNavbar';
 
 const ProgressReport = () => {
   const [reports, setReports] = useState([]);
@@ -23,23 +24,26 @@ const ProgressReport = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-2xl p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-gray-900">Progress Reports</h2>
-        {reports.length > 0 ? (
-          <ul>
-            {reports.map((report) => (
-              <li key={report._id} className="border-b border-gray-200 py-4">
-                <p><strong>Report:</strong> {report.report}</p>
-                <p><strong>Progress:</strong> {report.progress}</p>
-                <p><strong>Feedback:</strong> {report.feedback}</p>
-                <p><strong>Uploaded At:</strong> {new Date(report.createdAt).toLocaleString()}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No reports found.</p>
-        )}
+    <div className="flex min-h-screen bg-gray-100">
+      <UserNavbar />
+      <div className="flex-grow p-8">
+        <div className="w-full max-w-2xl p-8 space-y-6 bg-white rounded-lg shadow-lg">
+          <h2 className="text-3xl font-bold text-center text-gray-900">Progress Reports</h2>
+          {reports.length > 0 ? (
+            <ul>
+              {reports.map((report) => (
+                <li key={report._id} className="border-b border-gray-200 py-4">
+                  <p><strong>Report:</strong> {report.report}</p>
+                  <p><strong>Progress:</strong> {report.progress}</p>
+                  <p><strong>Feedback:</strong> {report.feedback}</p>
+                  <p><strong>Uploaded At:</strong> {new Date(report.createdAt).toLocaleString()}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No reports found.</p>
+          )}
+        </div>
       </div>
     </div>
   );
