@@ -28,6 +28,9 @@ const Navbar = ({ doctor }) => {
           <li className="mb-2">
             <Link to="/doctor/profile" className="text-white">Profile</Link>
           </li>
+          <li className="mb-2">
+            <Link to="/doctor/patients" className="text-white">Patients</Link>
+          </li>
         </ul>
       </nav>
     </div>

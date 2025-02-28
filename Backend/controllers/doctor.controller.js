@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const doctorModel = require('../models/doctor.model');
+const userModel = require('../models/user.model');
 const doctorService = require('../services/doctor.service');
 const blacklistTokenModel = require('../models/blacklistToken.model');
 
@@ -73,4 +74,14 @@ module.exports.logoutDoctor = async (req, res, next) => {
     res.clearCookie('token');
 
     res.status(200).json({ message: 'Logout successfully' });
+}
+
+// New method to get all patients
+module.exports.getAllPatients = async (req, res, next) => {
+    try {
+        const patients = await userModel.find({});
+        res.status(200).json(patients);
+    } catch (error) {
+        next(error);
+    }
 }
