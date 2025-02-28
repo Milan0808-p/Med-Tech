@@ -27,3 +27,14 @@ module.exports.getProgressReport = async (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.getProgressReportByPatientId = async (req, res, next) => {
+    try {
+        const { patientId } = req.params;
+        const reports = await MedicalReport.find({ userId: patientId });
+
+        res.status(200).json(reports);
+    } catch (error) {
+        next(error);
+    }
+};

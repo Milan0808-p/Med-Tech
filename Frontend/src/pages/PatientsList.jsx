@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const PatientsList = () => {
   const [patients, setPatients] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -23,6 +25,10 @@ const PatientsList = () => {
     fetchPatients();
   }, []);
 
+  const handlePatientClick = (patientId) => {
+    navigate(`/doctor/patients/${patientId}/reports`);
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Navbar />
@@ -32,7 +38,11 @@ const PatientsList = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {patients.length > 0 ? (
               patients.map((patient) => (
-                <div key={patient._id} className="bg-white p-6 rounded-lg shadow-lg">
+                <div
+                  key={patient._id}
+                  className="bg-white p-6 rounded-lg shadow-lg cursor-pointer"
+                  onClick={() => handlePatientClick(patient._id)}
+                >
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">
                     {patient.fullname.firstname} {patient.fullname.lastname}
                   </h3>

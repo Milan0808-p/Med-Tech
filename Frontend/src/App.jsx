@@ -12,6 +12,7 @@ import UserHomePage from './pages/UserHomePage';
 import UserProtectWrapper from './pages/UserProtectWrapper';
 import DoctorProtectWrapper from './pages/DoctorProtectWrapper';
 import PatientsList from './pages/PatientsList';
+import PatientReports from './pages/PatientReports';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
       <Route path="/upload-report" element={<UserProtectWrapper><UploadReport /></UserProtectWrapper>} />
       <Route path="/progress-report" element={<UserProtectWrapper><ProgressReport /></UserProtectWrapper>} />
       <Route path="/doctor/patients" element={<DoctorProtectWrapper><PatientsList /></DoctorProtectWrapper>} />
+      <Route path="/doctor/patients/:patientId/reports" element={<DoctorProtectWrapper><PatientReports /></DoctorProtectWrapper>} />
     </Routes>
   );
 };
