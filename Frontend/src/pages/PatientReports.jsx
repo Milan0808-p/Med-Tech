@@ -48,7 +48,7 @@ const PatientReports = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Navbar />
-      <div className="flex-grow p-8">
+      <div className="flex-grow p-8 ml-64">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Progress Reports</h2>
           {successMessage && (

@@ -1,35 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { FaHome, FaUser, FaEnvelope, FaCalendarAlt } from 'react-icons/fa';
 
-const Navbar = ({ doctor }) => {
+const Navbar = ({ doctor: propDoctor }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [doctor, setDoctor] = useState(propDoctor);
+
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      if (!propDoctor) {
+        try {
+          const token = localStorage.getItem('token');
+          const response = await axios.get('http://localhost:4000/doctors/profile', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          setDoctor(response.data.doctor);
+        } catch (error) {
+          console.error('Error fetching doctor profile:', error);
+        }
+      }
+    };
+
+    fetchDoctor();
+  }, [propDoctor]);
+
+  const toggleNavbar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
-      <div className="p-4">
-        {doctor ? (
-          <>
+    <div className={`h-screen bg-gray-800 text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300 fixed`}>
+      <div className="p-4 flex justify-between items-center">
+        {doctor && !isCollapsed && (
+          <div>
             <h2 className="text-xl font-bold">{doctor.fullname.firstname} {doctor.fullname.lastname}</h2>
             <p>{doctor.email}</p>
-          </>
-        ) : (
-          <p>Loading...</p>
+          </div>
         )}
+        <button onClick={toggleNavbar} className="text-white">
+          {isCollapsed ? '>' : '<'}
+        </button>
       </div>
       <nav className="flex-grow p-4">
         <ul>
-          <li className="mb-2">
+          <li className="mb-2 flex items-center">
+            <FaHome className="mr-2" />
             <Link to="/doctor" className="text-white">Home</Link>
           </li>
-          <li className="mb-2">
+          <li className="mb-2 flex items-center">
+            <FaUser className="mr-2" />
+            <Link to="/doctor/patients" className="text-white">Patients</Link>
+          </li>
+          <li className="mb-2 flex items-center">
+            <FaEnvelope className="mr-2" />
             <Link to="/doctor/messages" className="text-white">Messages</Link>
           </li>
-          <li className="mb-2">
+          <li className="mb-2 flex items-center">
+            <FaCalendarAlt className="mr-2" />
             <Link to="/doctor/appointments" className="text-white">Appointments</Link>
-          </li>
-          <li className="mb-2">
-            <Link to="/doctor/profile" className="text-white">Profile</Link>
-          </li>
-          <li className="mb-2">
-            <Link to="/doctor/patients" className="text-white">Patients</Link>
           </li>
         </ul>
       </nav>
