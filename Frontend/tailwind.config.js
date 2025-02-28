@@ -5,8 +5,15 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        aqua: {
+          500: '#00FFFF',
+          600: '#00E5E5',
+          700: '#00CCCC',
+        },
+      },
+    },
   },
   plugins: [],
-}
-
+};

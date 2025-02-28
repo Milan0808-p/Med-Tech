@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 const Start = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <nav className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-md py-4">
+      <nav className="bg-gradient-to-r from-teal-500 to-blue-600 shadow-md py-4">
         <div className="container mx-auto flex justify-between items-center px-4">
           <h1 className="text-3xl font-bold text-white">Med-Tech</h1>
           <div className="space-x-4">
             <Link to="/doctor/login" className="text-white hover:text-gray-200 transition duration-300">Doctor Login</Link>
             <Link to="/user/login" className="text-white hover:text-gray-200 transition duration-300">User Login</Link>
-            <Link to="/doctor/signup" className="text-white hover:text-gray-200 transition duration-300">Doctor Signup</Link>
-            <Link to="/user/signup" className="text-white hover:text-gray-200 transition duration-300">User Signup</Link>
+            {/* <Link to="/doctor/signup" className="text-white hover:text-gray-200 transition duration-300">Doctor Signup</Link>
+            <Link to="/user/signup" className="text-white hover:text-gray-200 transition duration-300">User Signup</Link> */}
           </div>
         </div>
       </nav>
