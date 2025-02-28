@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { DoctorDataContext } from '../context/DoctorContext';
 
-const Navbar = () => {
-  const { doctor } = React.useContext(DoctorDataContext);
-
+const Navbar = ({ doctor }) => {
   return (
     <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
       <div className="p-4">
-        <h2 className="text-xl font-bold">{doctor?.fullname.firstname} {doctor?.fullname.lastname}</h2>
-        <p>{doctor?.email}</p>
+        {doctor ? (
+          <>
+            <h2 className="text-xl font-bold">{doctor.fullname.firstname} {doctor.fullname.lastname}</h2>
+            <p>{doctor.email}</p>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
       <nav className="flex-grow p-4">
         <ul>

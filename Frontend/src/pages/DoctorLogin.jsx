@@ -17,8 +17,8 @@ const DoctorLogin = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:4000/doctors/login', formData);
-      console.log(response.data);
-      navigate('/');
+      localStorage.setItem('token', response.data.token);
+      navigate('/doctor');
     } catch (error) {
       console.error(error);
     }
