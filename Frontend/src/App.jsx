@@ -1,34 +1,23 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom';
-import { useContext } from 'react';
-
-import Start from '../pages/Start';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import DoctorHomePage from './pages/DoctorHomePage';
+import Start from './pages/Start';
+import DoctorSignup from './pages/DoctorSignup';
+import UserSignup from './pages/UserSignup';
+import DoctorLogin from './pages/DoctorLogin';
+import UserLogin from './pages/UserLogin';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={<Start />}></Route>
-      {/* <Route path='/login' element={<UserLogin />}></Route>
-      <Route path='/signup' element={<UserSignup />}></Route>
-      <Route path='/captain-login' element={<CaptainLogin />}></Route>
-      <Route path='/captain-signup' element={<CaptainSignup />}></Route>
-      <Route path='/home' element={<UserProtectWrapper>
-        <Home />
-      </UserProtectWrapper>}></Route>
-      <Route path='/user/logout' element={
-        <UserProtectWrapper>
-          <UserLogout />
-        </UserProtectWrapper>
-      }></Route>
-      <Route path='/captain-home' element={
-        <CaptainProtectWrapper>
-          <CaptainHome />
-        </CaptainProtectWrapper>}></Route>
-
-      <Route path='/riding' element={<Riding></Riding>}></Route>
-      <Route path='/captain-riding' element={<CaptainRiding></CaptainRiding>}></Route> */}
-    </Routes>
-  )
-}
+      <Routes>
+        <Route path="/" element={<Start />} />
+        <Route path="/doctor" element={<DoctorHomePage />} />
+        <Route path="/doctor/signup" element={<DoctorSignup />} />
+        <Route path="/user/signup" element={<UserSignup />} />
+        <Route path="/doctor/login" element={<DoctorLogin />} />
+        <Route path="/user/login" element={<UserLogin />} />
+      </Routes>
+  );
+};
 
 export default App;
