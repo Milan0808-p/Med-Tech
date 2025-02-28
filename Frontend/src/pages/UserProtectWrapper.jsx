@@ -11,13 +11,13 @@ const UserProtectWrapper = ({ children }) => {
 
     useEffect(() => {
         if (!token) {
-            navigate('/login');
+            navigate('/user/login');
             return;
         }
 
         const fetchUserProfile = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/profile`, {
+                const response = await axios.get('http://localhost:4000/users/profile', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -30,7 +30,7 @@ const UserProtectWrapper = ({ children }) => {
             } catch (err) {
                 console.log(err);
                 localStorage.removeItem('token');
-                navigate('/login');
+                navigate('/user/login');
             }
         };
 

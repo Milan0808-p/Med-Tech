@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UploadReport = () => {
   const [report, setReport] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setReport(e.target.value);
@@ -18,6 +20,7 @@ const UploadReport = () => {
         }
       });
       console.log(response.data);
+      navigate('/user'); // Redirect to user homepage after successful submission
     } catch (error) {
       console.error(error);
     }

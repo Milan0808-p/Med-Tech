@@ -3,7 +3,6 @@ const userService = require('../services/user.service');
 const { validationResult } = require('express-validator');
 const blackListTokenModel = require('../models/blacklistToken.model');
 
-
 module.exports.registerUser = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -49,7 +48,15 @@ module.exports.loginUser = async (req, res, next) => {
 }
 
 module.exports.getUserProfile = async (req, res, next) => {
-    res.status(200).json(req.user);
+    try {
+        const user = await userModel.findById(req.user._id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
 }
 
 module.exports.logoutUser = async (req, res, next) => {
@@ -57,7 +64,6 @@ module.exports.logoutUser = async (req, res, next) => {
     const token = req.cookies.token || req.headers.authorization.split(' ')[1];
 
     await blackListTokenModel.create({token});
-
 
     res.status(200).json({ message: 'Logged out' })
 }

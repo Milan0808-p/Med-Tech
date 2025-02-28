@@ -17,7 +17,7 @@ const UserLogin = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:4000/users/login', formData);
-      console.log(response.data);
+      localStorage.setItem('token', response.data.token); // Store token in localStorage
       navigate('/user');
     } catch (error) {
       console.error(error);

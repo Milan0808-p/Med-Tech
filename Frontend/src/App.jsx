@@ -18,8 +18,8 @@ const App = () => {
       <Route path="/" element={<Start />} />
       <Route path="/doctor" element={<DoctorProtectWrapper><DoctorHomePage /></DoctorProtectWrapper>} />
       <Route path="/doctor/signup" element={<DoctorSignup />} />
-      <Route path="/user/signup" element={<UserSignup />} />
       <Route path="/doctor/login" element={<DoctorLogin />} />
+      <Route path="/user/signup" element={<UserSignup />} />
       <Route path="/user/login" element={<UserLogin />} />
       <Route path="/user" element={<UserProtectWrapper><UserHomePage /></UserProtectWrapper>} />
       <Route path="/upload-report" element={<UserProtectWrapper><UploadReport /></UserProtectWrapper>} />
