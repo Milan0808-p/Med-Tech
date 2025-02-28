@@ -15,6 +15,10 @@ const medicalReportSchema = new Schema({
         type: String,
         default: 'Pending'
     },
+    feedback: {
+        type: String,
+        default: ''
+    },
     createdAt: {
         type: Date,
         default: Date.now

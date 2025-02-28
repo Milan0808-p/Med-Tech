@@ -32,6 +32,7 @@ const ProgressReport = () => {
               <li key={report._id} className="border-b border-gray-200 py-4">
                 <p><strong>Report:</strong> {report.report}</p>
                 <p><strong>Progress:</strong> {report.progress}</p>
+                <p><strong>Feedback:</strong> {report.feedback}</p>
                 <p><strong>Uploaded At:</strong> {new Date(report.createdAt).toLocaleString()}</p>
               </li>
             ))}

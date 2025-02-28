@@ -38,3 +38,22 @@ module.exports.getProgressReportByPatientId = async (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.addFeedback = async (req, res, next) => {
+    try {
+        const { reportId } = req.params;
+        const { feedback } = req.body;
+
+        const report = await MedicalReport.findById(reportId);
+        if (!report) {
+            return res.status(404).json({ message: 'Report not found' });
+        }
+
+        report.feedback = feedback;
+        await report.save();
+
+        res.status(200).json(report);
+    } catch (error) {
+        next(error);
+    }
+};
