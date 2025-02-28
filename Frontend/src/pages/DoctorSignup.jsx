@@ -21,7 +21,17 @@ const DoctorSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/doctors/register', formData);
+      const response = await axios.post('http://localhost:4000/doctors/register', {
+        fullname: {
+          firstname: formData.firstname,
+          lastname: formData.lastname
+        },
+        email: formData.email,
+        password: formData.password,
+        specialty: formData.specialty,
+        licenseNumber: formData.licenseNumber,
+        phoneNumber: formData.phoneNumber
+      });
       console.log(response.data);
       navigate('/');
     } catch (error) {
