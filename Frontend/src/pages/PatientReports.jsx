@@ -1,87 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
+import UserNavbar from '../components/UserNavbar';
 
-const PatientReports = () => {
-  const { patientId } = useParams();
-  const [reports, setReports] = useState([]);
-  const [successMessage, setSuccessMessage] = useState('');
+const UserHomePage = () => {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchReports = async () => {
+    const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:4000/medical-reports/progress/${patientId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        setReports(response.data);
+        if (token) {
+          const response = await axios.get('http://localhost:4000/users/profile', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          setUser(response.data);
+        }
       } catch (error) {
-        console.error('Error fetching progress reports:', error);
+        console.error('Error fetching user profile:', error);
       }
     };
 
-    fetchReports();
-  }, [patientId]);
-
-  const handleFeedbackSubmit = async (reportId, feedback, form) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:4000/medical-reports/feedback/${reportId}`, { feedback }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      // Clear the feedback field
-      form.reset();
-      // Show success message
-      setSuccessMessage('Feedback submitted successfully!');
-      // Refresh the reports after submitting feedback
-      fetchReports();
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-    }
-  };
+    fetchUserProfile();
+  }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <Navbar />
-      <div className="flex-grow p-8 ml-64">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Progress Reports</h2>
-          {successMessage && (
-            <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
-              {successMessage}
+    <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-200">
+      <UserNavbar user={user} />
+      <div className="flex-grow p-8 bg-white shadow-lg rounded-lg m-8">
+        {user ? (
+          <>
+            <div className="flex items-center mb-8">
+              <img
+                className="w-24 h-24 rounded-full"
+                src={`https://i.pravatar.cc/150?u=${user.email}`}
+                alt="Profile"
+              />
+              <div className="ml-6">
+                <h1 className="text-3xl font-bold text-gray-800">{user.fullname.firstname} {user.fullname.lastname}</h1>
+                <p className="text-gray-600">{user.email}</p>
+              </div>
             </div>
-          )}
-          <div className="space-y-6">
-            {reports.length > 0 ? (
-              reports.map((report) => (
-                <div key={report._id} className="bg-white p-6 rounded-lg shadow-lg">
-                  <p className="text-gray-800"><strong>Report:</strong> {report.report}</p>
-                  <p className="text-gray-600"><strong>Progress:</strong> {report.progress}</p>
-                  <p className="text-gray-600"><strong>Feedback:</strong> {report.feedback}</p>
-                  <p className="text-gray-600"><strong>Uploaded At:</strong> {new Date(report.createdAt).toLocaleString()}</p>
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    const feedback = e.target.elements.feedback.value;
-                    handleFeedbackSubmit(report._id, feedback, e.target);
-                  }}>
-                    <textarea name="feedback" placeholder="Enter feedback" className="w-full px-3 py-2 mt-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    <button type="submit" className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md">Submit Feedback</button>
-                  </form>
-                </div>
-              ))
-            ) : (
-              <p className="text-center">No reports found.</p>
-            )}
-          </div>
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-blue-50 p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold text-gray-700 mb-4">Personal Details</h2>
+                <p className="text-gray-700"><strong>Email:</strong> {user.email}</p>
+                <p className="text-gray-700"><strong>Phone:</strong> {user.phone}</p>
+                <p className="text-gray-700"><strong>Address:</strong> {user.address}</p>
+              </div>
+              <div className="bg-blue-50 p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold text-gray-700 mb-4">Medical Details</h2>
+                <p className="text-gray-700"><strong>Blood Group:</strong> {user.bloodGroup}</p>
+                <p className="text-gray-700"><strong>Allergies:</strong> {user.allergies}</p>
+                <p className="text-gray-700"><strong>Medical History:</strong> {user.medicalHistory}</p>
+              </div>
+            </div>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default PatientReports;
+export default UserHomePage;

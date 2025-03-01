@@ -26,15 +26,17 @@ const UserHomePage = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-200">
       <UserNavbar user={user} />
       <div className="flex-grow p-8 bg-white shadow-lg rounded-lg m-8">
         {user ? (
           <>
             <div className="flex items-center mb-8">
-              <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center text-white text-3xl font-bold">
-                {user.fullname.firstname.charAt(0)}{user.fullname.lastname.charAt(0)}
-              </div>
+              <img
+                className="w-24 h-24 rounded-full"
+                src={`https://thumbs.dreamstime.com/z/young-male-teenage-patient-hospital-gown-isolated-white-background-185244366.jpg`}
+                alt="Profile"
+              />
               <div className="ml-6">
                 <h1 className="text-3xl font-bold text-gray-800">{user.fullname.firstname} {user.fullname.lastname}</h1>
                 <p className="text-gray-600">{user.email}</p>
@@ -44,6 +46,14 @@ const UserHomePage = () => {
               <div className="bg-blue-50 p-6 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Personal Details</h2>
                 <p className="text-gray-700"><strong>Email:</strong> {user.email}</p>
+                <p className="text-gray-700"><strong>Phone:</strong> {user.phone}</p>
+                <p className="text-gray-700"><strong>Address:</strong> {user.address}</p>
+              </div>
+              <div className="bg-blue-50 p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold text-gray-700 mb-4">Medical Details</h2>
+                <p className="text-gray-700"><strong>Blood Group:</strong> {user.bloodGroup}</p>
+                <p className="text-gray-700"><strong>Allergies:</strong> {user.allergies}</p>
+                <p className="text-gray-700"><strong>Medical History:</strong> {user.medicalHistory}</p>
               </div>
             </div>
           </>
