@@ -32,7 +32,8 @@ const DoctorSignup = () => {
         licenseNumber: formData.licenseNumber,
         phoneNumber: formData.phoneNumber
       });
-      console.log(response.data);
+      // console.log(response.data);
+      localStorage.setItem('token', response.data.token);
       navigate('/doctor');
     } catch (error) {
       console.error(error);

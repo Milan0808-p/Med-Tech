@@ -26,7 +26,8 @@ const UserSignup = () => {
         email: formData.email,
         password: formData.password
       });
-      console.log(response.data);
+      // console.log(response.data);
+      localStorage.setItem('token', response.data.token);
       navigate('/user');
     } catch (error) {
       console.error(error);
