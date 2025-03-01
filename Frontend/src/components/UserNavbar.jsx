@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHome, FaUpload, FaChartLine } from 'react-icons/fa';
+import { FaHome, FaUpload, FaChartLine, FaSignOutAlt } from 'react-icons/fa';
 
 const UserNavbar = ({ user: propUser }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [user, setUser] = useState(propUser);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -29,6 +30,11 @@ const UserNavbar = ({ user: propUser }) => {
 
   const toggleNavbar = () => {
     setIsCollapsed(!isCollapsed);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   return (
@@ -57,6 +63,10 @@ const UserNavbar = ({ user: propUser }) => {
           <li className="mb-2 flex items-center">
             <FaChartLine className="mr-2" />
             <Link to="/progress-report" className="text-white">Progress Report</Link>
+          </li>
+          <li className="mb-2 flex items-center">
+            <FaSignOutAlt className="mr-2" />
+            <button onClick={handleLogout} className="text-white">Logout</button>
           </li>
         </ul>
       </nav>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHome, FaUser, FaEnvelope, FaCalendarAlt } from 'react-icons/fa';
+import { FaHome, FaUser, FaEnvelope, FaCalendarAlt, FaSignOutAlt } from 'react-icons/fa';
 
 const Navbar = ({ doctor: propDoctor }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [doctor, setDoctor] = useState(propDoctor);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -29,6 +30,11 @@ const Navbar = ({ doctor: propDoctor }) => {
 
   const toggleNavbar = () => {
     setIsCollapsed(!isCollapsed);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   return (
@@ -61,6 +67,10 @@ const Navbar = ({ doctor: propDoctor }) => {
           <li className="mb-2 flex items-center">
             <FaCalendarAlt className="mr-2" />
             <Link to="/doctor/appointments" className="text-white">Appointments</Link>
+          </li>
+          <li className="mb-2 flex items-center">
+            <FaSignOutAlt className="mr-2" />
+            <button onClick={handleLogout} className="text-white">Logout</button>
           </li>
         </ul>
       </nav>
