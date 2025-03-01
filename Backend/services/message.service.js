@@ -1,34 +1,41 @@
 const Message = require('../models/message.model');
+const doctorModel = require('../models/doctor.model');
+const userModel = require('../models/user.model');
 
 module.exports.sendMessage = async (senderId, senderModel, receiverId, receiverModel, content) => {
-    if (!senderId || !senderModel || !receiverId || !receiverModel || !content) {
-        throw new Error('Sender ID, Sender Model, Receiver ID, Receiver Model, and content are required');
-    }
+  if (!senderId || !senderModel || !receiverId || !receiverModel || !content) {
+    throw new Error('Sender ID, Sender Model, Receiver ID, Receiver Model, and content are required');
+  }
 
-    const message = new Message({
-        senderId,
-        senderModel,
-        receiverId,
-        receiverModel,
-        content,
-        createdAt: new Date()
-    });
+  const message = new Message({
+    senderId,
+    senderModel,
+    receiverId,
+    receiverModel,
+    content,
+    createdAt: new Date()
+  });
 
-    await message.save();
-    return message;
-}
+  await message.save();
 
-module.exports.getMessages = async (userId1, userModel1, userId2, userModel2) => {
-    if (!userId1 || !userModel1 || !userId2 || !userModel2) {
-        throw new Error('Both user IDs and their models are required');
-    }
+  // Add message ID to sender and receiver
+  await doctorModel.findByIdAndUpdate(senderId, { $push: { messages: message._id } });
+  await userModel.findByIdAndUpdate(receiverId, { $push: { messages: message._id } });
 
-    const messages = await Message.find({
-        $or: [
-            { senderId: userId1, senderModel: userModel1, receiverId: userId2, receiverModel: userModel2 },
-            { senderId: userId2, senderModel: userModel2, receiverId: userId1, receiverModel: userModel1 }
-        ]
-    }).sort({ createdAt: 1 });
+  return message;
+};
 
-    return messages;
-}
+module.exports.getMessages = async (doctorId, doctorModel, patientId, patientModel) => {
+  if (!doctorId || !doctorModel || !patientId || !patientModel) {
+    throw new Error('Both user IDs and their models are required');
+  }
+
+  const messages = await Message.find({
+    $or: [
+      { senderId: doctorId, senderModel: doctorModel, receiverId: patientId, receiverModel: patientModel },
+      { senderId: patientId, senderModel: patientModel, receiverId: doctorId, receiverModel: doctorModel }
+    ]
+  }).sort({ createdAt: 1 });
+
+  return messages;
+};

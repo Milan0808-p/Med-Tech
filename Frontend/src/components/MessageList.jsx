@@ -5,7 +5,7 @@ const MessageList = ({ messages, doctorId }) => {
     <div className="message-list">
       {messages.map((msg, index) => (
         <div key={index} className={`message ${msg.senderId === doctorId ? 'sent' : 'received'}`}>
-          <strong>{msg.senderId === doctorId ? 'You' : 'User'}:</strong> {msg.content}
+          <strong>{msg.senderId === doctorId ? 'Patient' : 'You'}:</strong> {msg.content}
         </div>
       ))}
     </div>

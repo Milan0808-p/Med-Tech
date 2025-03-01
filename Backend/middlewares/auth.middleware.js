@@ -17,7 +17,12 @@ module.exports.authUser = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await userModel.findById(decoded._id);
 
+        if (!user) {
+            return res.status(401).json({ message: 'Unauthorized access' });
+        }
+
         req.user = user;
+        req.userModel = 'User'; // Set the user model
         return next();
     } catch (err) {
         return res.status(401).json({ message: 'Unauthorized access' });
@@ -36,7 +41,12 @@ module.exports.authDoctor = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const doctor = await doctorModel.findById(decoded._id);
 
+        if (!doctor) {
+            return res.status(401).json({ message: 'Unauthorized access' });
+        }
+
         req.doctor = doctor;
+        req.userModel = 'Doctor'; // Set the doctor model
         return next();
     } catch (err) {
         return res.status(401).json({ message: 'Unauthorized access' });
