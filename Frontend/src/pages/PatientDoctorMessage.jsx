@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import UserNavbar from '../components/UserNavbar';
-import MessageList from '../components/MessageList';
+import PatientMessageList from '../components/PatientMessageList';
 import MessageInput from '../components/MessageInput';
 
 const PatientDoctorMessage = () => {
@@ -53,7 +53,7 @@ const PatientDoctorMessage = () => {
       <div className="flex-grow p-8 ml-64">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Messages with Doctor</h2>
-          <MessageList messages={messages} doctorId={doctorId} />
+          <PatientMessageList messages={messages} doctorId={doctorId} />
           <MessageInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
         </div>
       </div>

@@ -1,15 +1,12 @@
 import React from 'react';
 
-const MessageList = ({ messages, doctorId, isDoctor }) => {
+const PatientMessageList = ({ messages, doctorId }) => {
   return (
     <div className="message-list">
       {messages.map((msg, index) => (
         <div key={index} className={`message ${msg.senderId === doctorId ? 'sent' : 'received'}`}>
           <strong>
-            {msg.senderId === doctorId
-              ? (isDoctor ? 'You' : 'Doctor')
-              : (isDoctor ? 'Patient' : 'You')}
-            :
+            {msg.senderId === doctorId ? 'Doctor' : 'You'}:
           </strong> {msg.content}
         </div>
       ))}
@@ -17,4 +14,4 @@ const MessageList = ({ messages, doctorId, isDoctor }) => {
   );
 };
 
-export default MessageList;
+export default PatientMessageList;

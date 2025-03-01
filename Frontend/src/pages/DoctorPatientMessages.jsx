@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
-import MessageList from '../components/MessageList';
+import DoctorMessageList from '../components/DoctorMessageList';
 import MessageInput from '../components/MessageInput';
+import { DoctorDataContext } from '../context/DoctorContext';
 
 const DoctorPatientMessages = () => {
   const { patientId } = useParams();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  const { doctor } = useContext(DoctorDataContext);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -52,7 +54,7 @@ const DoctorPatientMessages = () => {
       <div className="flex-grow p-8 ml-64">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Messages</h2>
-          <MessageList messages={messages} doctorId={localStorage.getItem('doctorId')} />
+          {doctor && <DoctorMessageList messages={messages} doctorId={doctor._id} />}
           <MessageInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
         </div>
       </div>
