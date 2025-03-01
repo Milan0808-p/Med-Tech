@@ -13,6 +13,8 @@ import UserProtectWrapper from './pages/UserProtectWrapper';
 import DoctorProtectWrapper from './pages/DoctorProtectWrapper';
 import PatientsList from './pages/PatientsList';
 import PatientReports from './pages/PatientReports';
+import DoctorMessages from './pages/DoctorMessages';
+import DoctorPatientMessages from './pages/DoctorPatientMessages';
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
       <Route path="/progress-report" element={<UserProtectWrapper><ProgressReport /></UserProtectWrapper>} />
       <Route path="/doctor/patients" element={<DoctorProtectWrapper><PatientsList /></DoctorProtectWrapper>} />
       <Route path="/doctor/patients/:patientId/reports" element={<DoctorProtectWrapper><PatientReports /></DoctorProtectWrapper>} />
+      <Route path="/doctor/messages" element={<DoctorProtectWrapper><DoctorMessages /></DoctorProtectWrapper>} />
+      <Route path="/doctor/messages/:patientId" element={<DoctorProtectWrapper><DoctorPatientMessages /></DoctorProtectWrapper>} />
     </Routes>
   );
 };

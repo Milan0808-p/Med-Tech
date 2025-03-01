@@ -14,11 +14,9 @@ module.exports.sendMessage = async (req, res, next) => {
 
 module.exports.getConversation = async (req, res, next) => {
     try {
-        const userId1 = req.user._id;
-        const userModel1 = req.userModel; // Assuming you set this in your auth middleware
-        const userId2 = req.params.userId;
-        const userModel2 = req.params.userModel;
-        const messages = await messageService.getMessages(userId1, userModel1, userId2, userModel2);
+        const doctorId = req.doctor._id;
+        const userId = req.params.userId;
+        const messages = await messageService.getMessages(doctorId, 'Doctor', userId, 'User');
         res.status(200).json(messages);
     } catch (error) {
         next(error);
