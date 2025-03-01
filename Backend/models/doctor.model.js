@@ -42,7 +42,11 @@ const doctorSchema = new mongoose.Schema({
     },
     socketId: {
         type: String,
-    }
+    },
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message'
+    }]
 });
 
 doctorSchema.methods.generateAuthToken = function () {
