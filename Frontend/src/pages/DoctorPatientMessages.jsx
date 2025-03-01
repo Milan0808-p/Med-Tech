@@ -31,9 +31,8 @@ const DoctorPatientMessages = () => {
   const sendMessage = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:4000/messages/send', {
+      const response = await axios.post('http://localhost:4000/messages/send-message-from-doctor-to-patient', {
         receiverId: patientId,
-        receiverModel: 'User',
         content: message
       }, {
         headers: {
