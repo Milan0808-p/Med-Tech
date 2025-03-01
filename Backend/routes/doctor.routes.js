@@ -26,4 +26,6 @@ router.get('/logout', authMiddleware.authDoctor, doctorController.logoutDoctor);
 // New route to get all patients
 router.get('/patients', authMiddleware.authDoctor, doctorController.getAllPatients);
 
+router.get('/all', authMiddleware.authUser, doctorController.getAllDoctors);
+
 module.exports = router;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHome, FaUpload, FaChartLine, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaUpload, FaChartLine, FaEnvelope, FaSignOutAlt } from 'react-icons/fa';
 
 const UserNavbar = ({ user: propUser }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -38,7 +38,7 @@ const UserNavbar = ({ user: propUser }) => {
   };
 
   return (
-    <div className={`h-screen bg-gray-800 text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300`}>
+    <div className={`h-screen bg-gray-800 text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300 fixed`}>
       <div className="p-4 flex justify-between items-center">
         {user && !isCollapsed && (
           <div>
@@ -63,6 +63,10 @@ const UserNavbar = ({ user: propUser }) => {
           <li className="mb-2 flex items-center">
             <FaChartLine className="mr-2" />
             <Link to="/progress-report" className="text-white">Progress Report</Link>
+          </li>
+          <li className="mb-2 flex items-center">
+            <FaEnvelope className="mr-2" />
+            <Link to="/user/doctors" className="text-white">Messages</Link>
           </li>
           <li className="mb-2 flex items-center">
             <FaSignOutAlt className="mr-2" />

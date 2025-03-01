@@ -15,6 +15,8 @@ import PatientsList from './pages/PatientsList';
 import PatientReports from './pages/PatientReports';
 import DoctorMessages from './pages/DoctorMessages';
 import DoctorPatientMessages from './pages/DoctorPatientMessages';
+import DoctorsList from './pages/DoctorsList';
+import PatientDoctorMessage from './pages/PatientDoctorMessage';
 
 const App = () => {
   return (
@@ -32,6 +34,8 @@ const App = () => {
       <Route path="/doctor/patients/:patientId/reports" element={<DoctorProtectWrapper><PatientReports /></DoctorProtectWrapper>} />
       <Route path="/doctor/messages" element={<DoctorProtectWrapper><DoctorMessages /></DoctorProtectWrapper>} />
       <Route path="/doctor/messages/:patientId" element={<DoctorProtectWrapper><DoctorPatientMessages /></DoctorProtectWrapper>} />
+      <Route path="/user/doctors" element={<UserProtectWrapper><DoctorsList /></UserProtectWrapper>} />
+      <Route path="/user/messages/:doctorId" element={<UserProtectWrapper><PatientDoctorMessage /></UserProtectWrapper>} />
     </Routes>
   );
 };
