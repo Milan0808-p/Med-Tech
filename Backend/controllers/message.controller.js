@@ -23,3 +23,27 @@ module.exports.getConversation = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.sendMessageFromUserToDoctor = async (req, res, next) => {
+  try {
+    const { receiverId, content } = req.body;
+    const senderId = req.user._id;
+    const senderModel = 'User';
+    const receiverModel = 'Doctor';
+    const message = await messageService.sendMessage(senderId, senderModel, receiverId, receiverModel, content);
+    res.status(201).json(message);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getConversationWithDoctor = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const doctorId = req.params.doctorId;
+    const messages = await messageService.getMessages(userId, 'User', doctorId, 'Doctor');
+    res.status(200).json(messages);
+  } catch (error) {
+    next(error);
+  }
+};

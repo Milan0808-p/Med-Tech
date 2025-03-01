@@ -85,3 +85,13 @@ module.exports.getAllPatients = async (req, res, next) => {
         next(error);
     }
 }
+
+//New method to get all doctors
+module.exports.getAllDoctors = async (req, res, next) => {
+    try {
+        const doctors = await doctorModel.find({});
+        res.status(200).json(doctors);
+    } catch (error) {
+        next(error);
+    }
+};

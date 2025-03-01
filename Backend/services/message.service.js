@@ -19,8 +19,17 @@ module.exports.sendMessage = async (senderId, senderModel, receiverId, receiverM
   await message.save();
 
   // Add message ID to sender and receiver
-  await doctorModel.findByIdAndUpdate(senderId, { $push: { messages: message._id } });
-  await userModel.findByIdAndUpdate(receiverId, { $push: { messages: message._id } });
+  if (senderModel === 'Doctor') {
+    await doctorModel.findByIdAndUpdate(senderId, { $push: { messages: message._id } });
+  } else {
+    await userModel.findByIdAndUpdate(senderId, { $push: { messages: message._id } });
+  }
+
+  if (receiverModel === 'Doctor') {
+    await doctorModel.findByIdAndUpdate(receiverId, { $push: { messages: message._id } });
+  } else {
+    await userModel.findByIdAndUpdate(receiverId, { $push: { messages: message._id } });
+  }
 
   return message;
 };
